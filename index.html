@@ -1,0 +1,90 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+<style>
+#top {
+   width: 100%;
+   margin: 0;
+   padding: 0;
+   top: 50%;
+   left: 0;
+   position: absolute;
+  transform: translateY(-50%);
+}
+
+#color_fb {
+   margin: 0 auto 10px auto;
+   text-align: center;
+   background-color: rgb(200, 100, 50);
+   width: 50%;
+   height: 32px;
+}
+
+.slider_form {
+   width: 70%;
+   margin: 0 auto 0 auto;
+   white-space: nowrap;
+   position: relative;
+}
+
+.slidertitle {
+	height: 32px;
+}
+.slider {
+	height: 32px;	
+}
+
+.st_col {
+	display: inline-block;
+}
+
+.s_col {
+	display: inline-block;
+	white-space: normal;
+	position: absolute;
+	right: 0px;
+	width: 80%;
+}
+
+.slider_input {
+	margin: 0;
+	width: 100%;
+}
+</style>
+<script type="text/javascript"> 
+function submitter() {
+ var form = document.forms["myform"]; 
+ var rgb  = { "red": parseInt(form.red.value), "green": parseInt(form.green.value), "blue": parseInt(form.blue.value) }; 
+ var str  = { "freq": parseInt(form.freq.value), "rgb": rgb}; 
+ var xhr = new XMLHttpRequest(); 
+ xhr.open(form.method, form.action, true); 
+ xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+ xhr.send(JSON.stringify(str)); 
+ x = document.getElementById("color_fb");
+ x.style.backgroundColor = "rgb("+form.red.value+","+form.green.value+","+form.blue.value+")";
+ return false;
+};
+
+</script>
+</head>
+<body style="width: 100%; height: 100%; margin: 0;">
+ <div id="top"> 
+ <form class="slider_form" action="http://192.168.4.1/config?command=light" method="post" name="myform"> 
+   <input style="display: none" name="freq" value="100" />
+   <div id="color_fb"></div>
+   <div style="white-space: nowrap; position: relative">
+   <div class="st_col">
+   <div class="slidertitle">Red</div>
+   <div class="slidertitle">Green</div>
+   <div class="slidertitle">Blue</div>
+   </div>
+   <div class="s_col">
+   <div class="slider"><input class="slider_input" type="range" name="red" value="200" min="0" max="255" oninput="submitter()"/></div> 
+   <div class="slider"><input class="slider_input" type="range" name="green" value="100" min="0" max="255" oninput="submitter()" /></div>
+   <div class="slider"><input class="slider_input" type="range" name="blue" value="50" min="0" max="255" oninput="submitter()" /></div>
+   </div>
+   </div>
+  </form>
+  </div>
+ </html>
+
